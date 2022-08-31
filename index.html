@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>First laboratory</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #70b061;
+        }
+
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/script.js"></script>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td class="title">
+                Сущенко Роман Витальевич, группа P32141(?), вариант №1519
+            </td>
+        </tr>
+        <table>
+            <tr>
+                <td>
+                    <img src="images/areas.png" alt="Graph">
+                </td>
+                <td>
+                    <form action="" method="post" id="form">
+                        <fieldset>
+                            <legend>Проверить попадание</legend>
+                            <p>Выберите значение X:
+                                <label for="x1"><input type="checkbox" id="x1" name="x[]" value="-1.5">-1.5</label>
+                                <label for="x2"><input type="checkbox" id="x2" name="x[]" value="-1">-1</label>
+                                <label for="x3"><input type="checkbox" id="x3" name="x[]" value="-0.5">-0.5</label>
+                                <label for="x4"><input type="checkbox" id="x4" name="x[]" value="0">0</label>
+                                <label for="x5"><input type="checkbox" id="x5" name="x[]" value="0.5">0.5</label>
+                                <laber for="x6"><input type="checkbox" id="x6" name="x[]" value="1">1</label>
+                                    <label for="x7"><input type="checkbox" id="x7" name="x[]" value="1.5">1.5</label>
+                                    <label for="x8"><input type="checkbox" id="x8" name="x[]" value="2">2</label>
+                            </p>
+                            <p>Введите значение Y:
+                                <input type="text" name="y" id="y">
+                            </p>
+                            <p>Выберите значение R:
+                                <label for="r1"><input type="checkbox" id="r1" name="r[]" value="1">1</label>
+                                <label for="r2"><input type="checkbox" id="r2" name="r[]" value="2">2</label>
+                                <label for="r3"><input type="checkbox" id="r3" name="r[]" value="3">3</label>
+                                <label for="r4"><input type="checkbox" id="r4" name="r[]" value="4">4</label>
+                                <label for="r5"><input type="checkbox" id="r5" name="r[]" value="5">5</label>
+                                <br><br>
+                            </p>
+                            <p><input id="submit" type="submit" value="Отправить"></p>
+                        </fieldset>
+                    </form>
+                </td>
+                <td>
+                    <table id="table">
+                        <caption>Таблица ответов сервера</caption>
+                        <tr>
+                            <th>X</th>
+                            <th>Y</th>
+                            <th>R</th>
+                            <th>Попадание</th>
+                            <th>Местное время</th>
+                            <th>Время работы скрипта</th>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </table>
+</body>
+
+</html>
