@@ -19,23 +19,23 @@
 $(document).ready(function () {
     $.ajax({
         type: 'GET',
-        url: '../php/handler.php',
+        url: 'php/handler.php',
         success: (data) => $("#result_table tbody").html(data)
     });
 
     $("#form #submit").click(function (event) {
         if (!validate_form()) {
-            // alert("puk");
             return false;
         }
+
         var formData = $("#form").serializeArray();
         formData.push({"name" : "type", "value" : "update"});
         formData.push({"name": "local_time", "value" : new Date().toLocaleString()});
-        console.log(formData);
+        // console.log(formData);
 
         $.ajax({
             type: 'POST',
-            url: '../php/handler.php',
+            url: 'php/handler.php',
             data: formData,
             success: (data) => $("#result_table tbody").html(data)
         });
@@ -49,7 +49,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'POST',
-            url: '../php/handler.php',
+            url: 'php/handler.php',
             data: formData,
             success: (data) => $("#result_table tbody").html(data)
         });
