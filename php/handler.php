@@ -11,7 +11,10 @@ function check_y() {
 
 function check_r() {
     return isset($_POST["r"]) && count($_POST["r"]) == 1;
+}
 
+function check_local_time() {
+    return isset($_POST["local_time"]);
 }
 
 function validate_form() {
@@ -24,6 +27,9 @@ function validate_form() {
     }
     if (!check_r()) {
         $errors["r"] = "Only 1 checkbox should be checked";
+    }
+    if (!check_local_time()) {
+        $errors["local_time"] = "Set local time";
     }
     if (count($errors) > 0) {
         http_response_code(400);
