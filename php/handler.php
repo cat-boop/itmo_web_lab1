@@ -1,6 +1,6 @@
 <?php
 function check_x() {
-    return isset($_POST["x"]) && count($_POST["x"]) == 1;
+    return isset($_POST["x"]) && count($_POST["x"]) == 1 && is_numeric($_POST["x"][0]);
 }
 
 function check_y() {
@@ -10,7 +10,7 @@ function check_y() {
 }
 
 function check_r() {
-    return isset($_POST["r"]) && count($_POST["r"]) == 1;
+    return isset($_POST["r"]) && count($_POST["r"]) == 1 && is_numeric($_POST["r"][0]);
 }
 
 function check_local_time() {
