@@ -15,7 +15,20 @@ function check_r() {
 }
 
 function validate_form() {
-    return check_x() && check_y() && check_r();
+    $errors = [];
+    if (!check_x()) {
+        $errors["x"] = "Only 1 checkbox should be checked";
+    }
+    if (!check_y()) {
+        $errors["y"] = "Please, enter valid number";
+    }
+    if (!check_r()) {
+        $errors["r"] = "Only 1 checkbox should be checked";
+    }
+    if (count($errors) > 0) {
+        http_response_code(400);
+        exit(json_encode($errors));
+    }
 }
 
 function check_triangle_hit($x, $y, $r) {
@@ -42,36 +55,53 @@ function check_hit($x, $y, $r) {
     return check_triangle_hit($x, $y, $r) || check_circle_hit($x, $y, $r) || check_square_hit($x, $y, $r);
 }
 
+
 $time_start = microtime(true);
 
-$data = [];
-$errors = [];
+session_start();
+if (!isset($_SESSION["table"])) $_SESSION["table"] = "";
 
-if (!validate_form()) {
-    if (!check_x()) {
-        $errors["x"] = "Only 1 checkbox should be checked";
-    }
-    if (!check_y()) {
-        $errors["y"] = "Please, enter valid number";
-    }
-    if (!check_r()) {
-        $errors["r"] = "Only 1 checkbox should be checked";
-    }
-    $data["success"] = false;
-    $data["errors"] = $errors;
-} else {
-    $data["success"] = true;
-    $x = (float)$_POST["x"][0];
-    $y = (float)$_POST["y"];
-    $r = (float)$_POST["r"][0];
-
-    $data["x"] = $x;
-    $data["y"] = $y;
-    $data["r"] = $r;
-    $data["hit"] = check_hit($x, $y, $r) ? "true" : "false";
-    $data["local_time"] = idate("H") . ":" . idate("i") . ":" . idate("s") . " " . idate("d") . "." . idate("m") . "." . idate("Y");    
-    $data["script_time"] = (microtime(true) - $time_start) * 1000 . " ms";
+if ($_SERVER["REQUEST_METHOD"] === "GET") {
+    http_response_code(200);
+    exit($_SESSION["table"]);
 }
 
-echo json_encode($data);
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if (!isset($_POST["type"])) {
+        http_response_code(400);
+        exit();
+    }
+
+    if ($_POST["type"] === "update") {
+        validate_form();
+
+        $x = (float)$_POST["x"][0];
+        $y = (float)$_POST["y"];
+        $r = (float)$_POST["r"][0];
+        $hit = check_hit($x, $y, $r) ? "yes" : "no";
+        $local_time = $_POST["local_time"]; 
+        $script_time = (microtime(true) - $time_start) * 1000 . " ms";
+
+        $new_row = "<tr>" . 
+                        "<td>" . $x . "</td>" .
+                        "<td>" . $y . "</td>" .
+                        "<td>" . $r . "</td>" .
+                        "<td>" . $hit . "</td>" .
+                        "<td>" . $local_time . "</td>" .
+                        "<td>" . $script_time . "</td>" .
+                    "</tr>";
+        $_SESSION["table"] = $_SESSION["table"] . $new_row;
+
+        http_response_code(200);
+        exit($_SESSION["table"]);
+    } 
+    elseif ($_POST["type"] === "clear") {
+        $_SESSION["table"] = "";
+        http_response_code(200);
+        exit($_SESSION["table"]);
+    } else {
+        http_response_code(400);
+        exit();
+    }
+}
 ?>
